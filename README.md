@@ -72,8 +72,6 @@ volumes:
 
 ```
   
-    ```
-
 3.  **Run it:**
     ```bash
     docker compose up -d
@@ -160,6 +158,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
 
 
