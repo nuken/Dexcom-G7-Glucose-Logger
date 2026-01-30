@@ -2,7 +2,7 @@
 
 A self-hosted, mobile-friendly dashboard that logs Dexcom (G4/G5/G6/G7) glucose readings to a local database.
 
-![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.14-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 ![GitHub pkgs](https://img.shields.io/badge/Container-GHCR-blue?logo=github)
@@ -50,29 +50,26 @@ The easiest way to run this is with Docker Compose. You do not need to clone the
 2.  **Create a `compose.yaml` file:**
     Create a file named `compose.yaml` and paste the following:
 
+    ```yaml
+    services:
+      web:
+        image: ghcr.io/nuken/dexcom-glucose-logger:latest
+        container_name: dexcom-web
+        restart: unless-stopped
+        ports:
+          - 5000:5000
+        environment:
+          - DEXCOM_USER=your_username_here
+          - DEXCOM_PASS=your_password_here
+          - DEXCOM_OUS=False # Set to True if outside US
+          - TZ=America/New_York
+        volumes:
+          - glucose_data:/app/data
 
-```yaml
-
-services:
-  web:  # <--- MUST be indented (2 spaces)
-    image: ghcr.io/nuken/dexcom-glucose-logger:latest
-    container_name: dexcom-web
-    restart: unless-stopped
-    ports:
-      - 5000:5000
-    environment:
-      - DEXCOM_USER=your_username_here
-      - DEXCOM_PASS=your_password_here
-      - DEXCOM_OUS=False
-      - TZ=America/New_York
     volumes:
-      - glucose_data:/app/data
+      glucose_data:
+    ```
 
-volumes:
-  glucose_data:
-
-```
-  
 3.  **Run it:**
     ```bash
     docker compose up -d
@@ -90,17 +87,16 @@ If you use a dashboard like Portainer or Dockge, you can deploy this as a **Stac
 **Stack Configuration:**
 
 ```yaml
-
 services:
-  web:  # <--- MUST be indented (2 spaces)
+  web:
     image: ghcr.io/nuken/dexcom-glucose-logger:latest
     container_name: dexcom-web
     restart: unless-stopped
     ports:
       - 5000:5000
     environment:
-      - DEXCOM_USER=your_username_here
-      - DEXCOM_PASS=your_password_here
+      - DEXCOM_USER=your_username
+      - DEXCOM_PASS=your_password
       - DEXCOM_OUS=False
       - TZ=America/New_York
     volumes:
@@ -118,7 +114,7 @@ volumes:
 You can configure the application using environment variables in `compose.yaml`:
 
 | Variable | Description | Default |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | `DEXCOM_USER` | **Required.** Your Dexcom account username. | `None` |
 | `DEXCOM_PASS` | **Required.** Your Dexcom account password. | `None` |
 | `DEXCOM_OUS` | Set to `True` if you live outside the US (International Account). | `False` |
@@ -141,9 +137,10 @@ This usually happens if the password is incorrect or Dexcom servers are temporar
 
 ## 🔒 Privacy & Data
 
-This application stores your personal health data in a local file named `glucose.db` located in the application folder.
+This application stores your personal health data in a local volume named `glucose_data` on your server.
+
 * **Ownership:** You own this data. It never leaves your server.
-* **Backup:** We recommend backing up the `glucose.db` file regularly.
+* **Backup:** We recommend backing up the volume regularly.
 * **Security:** Ensure your server is secure and not exposed to the public internet without proper authentication (like a VPN or Authelia).
 
 ---
@@ -158,17 +155,5 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ## 📄 License
 
-This project is [MIT](LICENSE) licensed.
-
-
-
-
-
-
-
-
-
-
-
-
+This project is [MIT](https://www.google.com/search?q=LICENSE) licensed.
 
