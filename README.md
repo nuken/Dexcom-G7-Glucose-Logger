@@ -50,21 +50,28 @@ The easiest way to run this is with Docker Compose. You do not need to clone the
 2.  **Create a `compose.yaml` file:**
     Create a file named `compose.yaml` and paste the following:
 
-    ```yaml
-    services:
-      web:
-        image: ghcr.io/nuken/dexcom-glucose-logger:latest
-        container_name: dexcom-web
-        restart: unless-stopped
-        ports:
-          - 5000:5000
-        environment:
-          - DEXCOM_USER=your_username_here
-          - DEXCOM_PASS=your_password_here
-          - DEXCOM_OUS=False # Set to True if outside US
-          - TZ=America/New_York
-        volumes:
-          - ./data:/app/data
+  ```yaml
+
+services:
+  web:
+    image: ghcr.io/nuken/dexcom-glucose-logger:latest
+    container_name: dexcom-web
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    environment:
+      - DEXCOM_USER=your_username
+      - DEXCOM_PASS=your_password
+      - DEXCOM_OUS=False
+      - TZ=America/New_York
+    volumes:
+      - glucose_data:/app/data
+
+volumes:
+  glucose_data:
+
+```
+  
     ```
 
 3.  **Run it:**
@@ -84,8 +91,9 @@ If you use a dashboard like Portainer or Dockge, you can deploy this as a **Stac
 **Stack Configuration:**
 
 ```yaml
+
 services:
-  dexcom-logger:
+  web:
     image: ghcr.io/nuken/dexcom-glucose-logger:latest
     container_name: dexcom-web
     restart: unless-stopped
@@ -97,9 +105,11 @@ services:
       - DEXCOM_OUS=False
       - TZ=America/New_York
     volumes:
-      # Map a folder on your host to /app/data
-      # The app will automatically create the database file inside this folder.
-      - /path/to/your/storage_folder:/app/data
+      - glucose_data:/app/data
+
+volumes:
+  glucose_data:
+
 ```
 
 ---
@@ -150,6 +160,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
 
 
