@@ -50,7 +50,8 @@ The easiest way to run this is with Docker Compose. You do not need to clone the
 2.  **Create a `compose.yaml` file:**
     Create a file named `compose.yaml` and paste the following:
 
-  ```yaml
+
+```yaml
 
 services:
   web:  # <--- MUST be indented (2 spaces)
@@ -69,6 +70,7 @@ services:
 
 volumes:
   glucose_data:
+
 ```
   
 3.  **Run it:**
@@ -157,6 +159,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
 
 
