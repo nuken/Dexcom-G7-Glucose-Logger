@@ -5,6 +5,7 @@ A self-hosted, mobile-friendly dashboard that logs Dexcom (G4/G5/G6/G7) glucose 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
+![GitHub pkgs](https://img.shields.io/badge/Container-GHCR-blue?logo=github)
 
 > **Why this exists:** The official Dexcom Share API limits data retrieval to the last 24 hours. This application bypasses that limitation by automatically syncing readings to a local SQLite database, giving you ownership of your long-term health history.
 
@@ -36,23 +37,48 @@ Before running this logger, ensure:
 
 ---
 
-The easiest way to run this is with Docker Compose.
+## 🚀 Quick Start
 
-1.  **Clone the repository:**
+The easiest way to run this is with Docker Compose. You do not need to clone the repository code, you only need the configuration file.
+
+1.  **Create a folder** for the project:
     ```bash
-    git clone https://github.com/nuken/dexcom-glucose-logger.git
-    cd dexcom-glucose-logger
+    mkdir dexcom-logger
+    cd dexcom-logger
     ```
 
-2.  **Configure your credentials:**
-    Edit the `compose.yaml` file and enter your Dexcom username and password.
+2.  **Create the database file:**
+    Docker requires this file to exist before we start so it can map it correctly.
+    ```bash
+    touch glucose.db
+    ```
 
-3.  **Run it:**
+3.  **Create a `compose.yaml` file:**
+    Create a file named `compose.yaml` and paste the following:
+
+    ```yaml
+    services:
+      web:
+        image: ghcr.io/nuken/dexcom-glucose-logger:latest
+        container_name: dexcom-web
+        restart: unless-stopped
+        ports:
+          - 5000:5000
+        environment:
+          - DEXCOM_USER=your_username_here
+          - DEXCOM_PASS=your_password_here
+          - DEXCOM_OUS=False # Set to True if outside US
+          - TZ=America/New_York
+        volumes:
+          - ./glucose.db:/app/glucose.db
+    ```
+
+4.  **Run it:**
     ```bash
     docker compose up -d
     ```
 
-4.  **Access the Dashboard:**
+5.  **Access the Dashboard:**
     Open your browser and go to `http://your-server-ip:5000`
 
 ---
@@ -103,6 +129,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
 
 
