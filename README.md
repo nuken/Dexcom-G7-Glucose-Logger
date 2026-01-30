@@ -1,4 +1,4 @@
-# 📈 Dexcom G7 Glucose Logger
+# 📈 Dexcom Glucose Logger (G4/G5/G6/G7)
 
 A self-hosted, mobile-friendly dashboard that logs Dexcom G7 glucose readings to a local database.
 
@@ -99,4 +99,5 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
