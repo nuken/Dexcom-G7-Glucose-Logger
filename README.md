@@ -111,7 +111,7 @@ If you use a dashboard like Portainer or Dockge, you can deploy this as a **Stac
           - TZ=America/New_York
         volumes:
           # UPDATE THIS PATH to the empty file you created in step 1
-          - /path/to/your/data/glucose.db:/app/glucose.db
+          - /path/to/your/storage:/app/data
     ```   
 
 ---
@@ -162,6 +162,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
 
 
