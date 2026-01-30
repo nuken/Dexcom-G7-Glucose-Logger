@@ -96,9 +96,14 @@ This application stores your personal health data in a local file named `glucose
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/nuken/dexcom-g7-glucose-logger/issues).
 
+## Acknowledgements
+
+* **[pydexcom](https://github.com/gagebenne/pydexcom):** This project relies on the excellent library by [Gage Benne](https://github.com/gagebenne) to communicate with the Dexcom Share API.
+
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
 
 
