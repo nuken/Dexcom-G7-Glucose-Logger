@@ -81,6 +81,39 @@ The easiest way to run this is with Docker Compose. You do not need to clone the
 5.  **Access the Dashboard:**
     Open your browser and go to `http://your-server-ip:5000`
 
+ ---
+
+## 🖥️ Portainer / Dockge
+
+If you use a dashboard like Portainer or Dockge, you can deploy this as a **Stack**.
+
+1.  **Preparation (Crucial):**
+    You must create an empty database file on your server *before* deploying. If you don't, Docker will create a folder named `glucose.db` and the app will crash.
+    ```bash
+    touch /path/to/your/data/glucose.db
+    ```
+
+2.  **Stack Configuration:**
+    Copy this into your Stack editor. Be sure to update the `/path/to/...` to match where you created the file above.
+
+    ```yaml
+    services:
+      dexcom-logger:
+        image: ghcr.io/nuken/dexcom-glucose-logger:latest
+        container_name: dexcom-web
+        restart: unless-stopped
+        ports:
+          - 5000:5000
+        environment:
+          - DEXCOM_USER=your_username
+          - DEXCOM_PASS=your_password
+          - DEXCOM_OUS=False
+          - TZ=America/New_York
+        volumes:
+          # UPDATE THIS PATH to the empty file you created in step 1
+          - /path/to/your/data/glucose.db:/app/glucose.db
+    ```   
+
 ---
 
 ## ⚙️ Configuration
@@ -129,6 +162,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](LICENSE) licensed.
+
 
 
 
