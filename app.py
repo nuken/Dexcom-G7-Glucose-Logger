@@ -13,7 +13,7 @@ DEXCOM_USER = os.environ.get('DEXCOM_USER')
 DEXCOM_PASS = os.environ.get('DEXCOM_PASS')
 IS_OUS = os.environ.get('DEXCOM_OUS', 'False').lower() == 'true'
 DEXCOM_REGION = "ous" if IS_OUS else "us"
-DB_FILE = "/app/glucose.db"
+DB_FILE = "/app/data/glucose.db"
 
 # GLOBAL STATE
 # We use this to prevent spamming Dexcom logins
@@ -22,6 +22,9 @@ SYNC_COOLDOWN = 300  # 5 Minutes (in seconds)
 
 # --- DATABASE FUNCTIONS ---
 def init_db():
+    # Ensure the folder exists before creating the DB file
+    os.makedirs(os.path.dirname(DB_FILE), exist_ok=True)
+    
     with sqlite3.connect(DB_FILE) as conn:
         conn.execute('''
             CREATE TABLE IF NOT EXISTS readings (
@@ -140,4 +143,5 @@ def get_readings():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=5000)
