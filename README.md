@@ -14,6 +14,8 @@ A self-hosted, mobile-friendly dashboard that logs Dexcom (G4/G5/G6/G7) glucose 
 ## ✨ Features
 
 * **📊 Long-Term History:** Automatically bypasses the 24-hour API limit by saving every reading to a local `glucose.db` file.
+* **📈 Visual Trends:** A dedicated dashboard with interactive charts showing glucose history (24h to 90 Days) and "Time in Range" statistics.
+* **🏥 Health Export:** One-click CSV export formatted for medical analysis tools (compatible with Glooko/Tidepool/Clarity imports).
 * **📱 Mobile-First Design:** A responsive, modern UI designed specifically for checking trends on your phone.
 * **🔄 Auto-Sync:** A background worker wakes up every 30 minutes to fetch new data and fill in any gaps.
 * **🖨️ Printer Friendly:** One-click "Print" button formats the data perfectly for doctor visits.
@@ -156,4 +158,5 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📄 License
 
 This project is [MIT](https://www.google.com/search?q=LICENSE) licensed.
+
 
