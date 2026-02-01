@@ -189,6 +189,9 @@
                     <a href="/api/export/health" class="btn btn-primary btn-sm mt-2 no-print" style="border-radius: 8px; font-weight: 600;">
                         🏥 Health Export (CSV)
                     </a>
+					<a href="/trends" class="btn btn-outline-primary btn-sm mt-2 no-print" style="border-radius: 8px; font-weight: 600; margin-left: 5px;">
+    📊 View Trends
+</a>
                 </div>
                 
                 <div class="controls-wrapper no-print d-flex align-items-center gap-4">
@@ -258,10 +261,10 @@
             var table = $('#glucoseTable').DataTable({
                 columns: [
                     { 
-                        data: 'timestamp', // SORT using raw time
+                        data: 'timestamp', 
                         render: function(data, type, row) {
                             if (type === 'display' || type === 'filter') {
-                                return row.time; // DISPLAY pretty time
+                                return row.time; 
                             }
                             return data;
                         }
@@ -269,12 +272,9 @@
                     { 
                         data: 'mg_dl',
                         render: function(data, type, row) {
-                            // SORT FIX:
-                            // If the table asks "How do I sort/filter?", give it the raw number (data)
                             if (type === 'sort' || type === 'type') {
                                 return data;
                             }
-                            // If the table asks "What do I display?", give it the fancy HTML
                             return `
                                 <div class="glucose-wrapper">
                                     <div class="arrow-badge">${row.trend_arrow}</div>
@@ -332,8 +332,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
-
